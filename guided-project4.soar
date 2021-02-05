@@ -1,0 +1,57 @@
+##!
+# @file
+#
+# @created kgrondah 20210202
+
+
+smem --set learning on
+
+smem --add {
+    (<main> ^food <a1> <a2> <a3>)
+    (<a1> ^type taco ^calories 200 ^mainIngredient <b1>)
+    (<a2> ^type burger ^calories 400 ^mainIngredient <b2>)
+    (<a3> ^type steak ^calories 300 ^mainIngredient <b3>)
+    (<b1> ^ingredient shell)
+    (<b2> ^ingredient patty)
+    (<b3> ^ingredient meat)
+}
+
+
+
+sp {propose*cue
+    (state <s> ^type state)
+    (<s> -^cue)
+-->
+    (<s> ^operator <o> + !)
+    (<o> ^name cue)
+}
+  
+sp {apply*cue
+    (state <s> ^operator <o>)
+    (<o> ^name cue)
+    (<s> ^smem.command <cmd>) #TODO: Smem command link, mapped to the variable <cmd>
+-->
+    (<s> ^cue true)
+    (<cmd> ^query.type taco) #TODO: Create a query link, use the attribute value pair type/taco to pull in the LTI as as a STI
+}
+
+
+sp {propose*noncue
+    (state <s> ^type state)
+    (<s> -^noncue)
+-->
+    (<s> ^operator <o> + =)
+    (<o> ^name noncue)
+}
+  
+sp {apply*noncue
+    (state <s> ^operator <o>)
+    (<o> ^name noncue)
+    (<s> ^smem.command <cmd>) #TODO: Link to ^smem.command, matching the node to the variable <cmd>
+    (<cmd> ^query <qy>) #TODO: From the <cmd> node, link to the node connected by 'query', matching it to the variable <qy>
+    (<s> ^smem.result.retrieved.mainIngredient <lti>) #TODO: Match to the mainIngredient LTI (smem.result.retrieved.mainIngredient)
+-->
+    (<s> ^noncue true)
+    (<cmd> ^query <qy> -) #TODO: Remove the query attribute/node
+    (<cmd> ^retrieve <lti>) #TODO: Conduct a non-cue operation, using <lti> from above
+}
