@@ -1,0 +1,82 @@
+##!
+# @file
+#
+# @created kgrondah 20210128
+
+#visualize architectural-wmes  on
+#visualize image-type jpg
+##visualize wm
+#visualize ?
+
+
+sp {propose*initBank
+    (state <s> ^type state)
+    (<s> -^Bank)
+-->
+    (<s> ^operator <o> + =)
+    (<o> ^name Bank)
+}
+ 
+sp {apply*initBank
+    (state <s> ^operator <o>)
+    (<o> ^name Bank)
+-->
+    (<s> ^Bank <Bank>)
+    (<Bank> ^AccountBalance 2000)
+}
+
+#balance below 1k
+
+sp {propose*balanceUnder1k
+    (state <s> ^Bank <bank>)
+    (<bank> ^AccountBalance < 1000)
+--> 
+    (<s> ^operator <o> + =)
+    (<o> ^name add5k)
+    }
+
+sp {apply*balanceUnder1k
+    (state <s> ^operator <o> 
+               ^Bank <bank>)
+    (<bank> ^AccountBalance <balance>)
+    (<o> ^name add5k)
+--> 
+    (<s> ^Bank <bank>)
+    (<bank> ^AccountBalance <balance> -)
+    (<bank> ^AccountBalance (+ 5000 <balance>))
+}
+
+#balance >= 1k
+
+sp {propose*balanceAbove1k
+    (state <s> ^Bank <bank>) 
+    (<bank> ^AccountBalance > 1000)
+--> 
+    (<s> ^operator <o> + =)
+    (<o> ^name add4k)
+}
+
+sp {apply*balanceAbove1k
+    (state <s> ^operator <o>)
+    (<s> ^Bank <bank>)
+    (<bank> ^AccountBalance <balance>)
+    (<o> ^name add4k)
+--> 
+    (<s> ^Bank <bank>)
+    (<bank> ^AccountBalance (+ <balance> 4000))
+    (<bank> ^AccountBalance <balance> -)
+}
+
+sp {detect*abalance
+    (state <s> ^Bank.AccountBalance <balance>)
+-->
+    (write |Balance :| <balance>)
+    }
+
+sp {detect*balanceAbove5k
+    (state <s> ^Bank <bank>)
+    (<bank> ^AccountBalance >= 5000)
+    -->
+    (write |Balance over five thousand|)
+    (halt)
+}
