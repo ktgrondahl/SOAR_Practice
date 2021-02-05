@@ -1,0 +1,125 @@
+##!
+# @file
+#
+# @created kgrondah 20210129
+sp {propose*init
+    (state <s> ^type state)
+    (<s> ^superstate nil)
+    (<s> -^agent)
+-->
+    (<s> ^operator <o> + !)
+    (<o> ^name init)
+}
+  
+sp {apply*init
+    (state <s> ^operator <o>)
+    (<o> ^name init)
+-->
+    (<s> ^agent number)
+    (<s> ^val1 25)
+    (<s> ^val2 10)
+}
+
+
+#Write an elaboration rule that adds both values and places it into the working memory. The attribute should be named 'combinedVals'. Example: <s> ^combinedVals 20
+sp {elaborate*sum
+    (state <s> ^type state) 
+    (<s> ^val1 <val1>)
+    (<s> ^val2 <val2>)
+--> 
+    (<s> ^combinedVals (+ <val1> <val2>))
+    (write |value 1| <val1>)
+    (write |value 2| <val2>)
+    (write |combined| (+ <val1> <val2>))
+}
+
+
+#Operator 'decrease2' (preference of >)
+#Only propose the operator if combinedVals is greater than 20.
+#To apply the operator, decrease val1 by 2
+#Both rules should only fire in S1
+
+
+sp {propose*decrease2
+    (state <s> ^combinedVals > 20)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name decrease2)
+}
+
+sp {apply*decrease2
+    (state <s> ^operator <o>)
+    (<o> ^name decrease2)
+    (<s> ^val1 <val1>)
+-->
+    (<s> ^val1 <val1> -)
+    (<s> ^val1 (- <val1> 2))
+}
+
+
+
+#Operator 'decrease1' (preference of >)
+#Only propose the operator if combinedVals is greater than 0.
+#To apply the operator, decrease val1 by 1
+#Both rules should only fire in S1
+
+sp {propose*decrease1
+    (state <s> ^combinedVals > 0)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name decrease1)
+}
+
+sp {apply*decrease1
+    (state <s> ^operator <o>)
+    (<o> ^name decrease1)
+    (<s> ^val1 <val1>)
+-->
+    (<s> ^val1 <val1> -)
+    (<s> ^val1 (- <val1> 1))
+}
+
+#Operator breakImpasse
+#Prefer decrease2
+#Only propose this operator in the substate.
+
+sp {propose*breakImpasse
+    (state <s> ^impasse tie)
+    (<s> ^item <o1>)
+    (<s> ^item <o2>)
+    (<o1> ^name decrease1)
+    (<o2> ^name decrease2)
+    
+--> 
+    (<s> ^operator <o> + =)
+    (<o> ^name breakImpasse)
+    (<o> ^name1 decrease1)
+    (<o> ^name2 decrease2)    
+} 
+
+sp {apply*breakImpasse
+    (state <s> ^operator <o>)
+    (<o> ^name breakImpasse)
+    (<o> ^name1 decrease1)
+    (<o> ^name2 decrease2)
+
+    (<s> ^superstate <ss>)
+    (<ss> ^operator <o1> +)
+    (<o1> ^name decrease1)
+    (<ss> ^operator <o2> +)
+    (<o2> ^name decrease2)
+-->
+    (<ss> ^operator <o2> !)
+    (write |'breaking impasse'|)       
+}
+sp {detect*printTotal
+    (state <s> ^combinedVals <total>)
+    -->
+    (write |Sum is:| <total> )
+}
+
+sp {detect*atZero
+    (state <s> ^combinedVals < 0)
+    -->
+    (halt)
+}
