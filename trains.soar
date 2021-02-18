@@ -1,0 +1,338 @@
+##!
+# @file
+#
+# @created kgrondah 20210211
+#                                        | Up | 
+#                                     ------------------
+#                                    /
+#                                   /
+#   | Far-Left | Left | Center |   /  | Right | Far-Right|
+#   -------------------------------------------------------
+#   Not to get too political ...  
+
+# First attempt. Not to successful but at least something is moving around. 
+
+sp {propose*initialize-train-problem
+    (state <s> ^type state
+               -^name)
+--> 
+    (<s> ^operator <o> + = )
+    (<o> ^name initialize-train-problem)
+}
+
+
+sp {apply*initialize-train-problem
+    (state <s> ^operator <o>)
+    (<o> ^name initialize-train-problem)
+-->
+    (<s> ^name TrainTracks)
+    (<s> ^Train <Engine1>)
+    (<Engine1> ^name Engine1) 
+    (<s> ^Train <Engine2>)
+    (<Engine2> ^name Engine2) 
+    (<s> ^Train <Car>)
+    (<Car> ^name Car)
+    (<s> ^Track <FarLeft>)
+    (<FarLeft> ^name FarLeft)
+    (<s> ^Track <Left>)
+    (<Left> ^name Left)
+    (<s> ^Track <Center>)
+    (<Center> ^name Center)
+    (<s> ^Track <Up>)
+    (<Up> ^name Up)
+    (<s> ^Track <Right>)
+    (<Right> ^name Right)
+    (<s> ^Track <FarRight>)
+    (<FarRight> ^name FarRight)
+    (<Engine1> ^location FarLeft)
+    (<Engine2> ^location Right)
+    (<Car> ^location FarRight)
+}
+
+
+sp {detect*goal*achieved
+    (state <s> ^Train <Engine2>
+               ^Train <Car>)
+    (<Engine2> ^name Engine2
+               ^location FarRight)
+    (<Car> ^name Car
+           ^location Right)
+--> 
+    (write |Goal achieved|)
+    (halt)
+}
+
+
+
+# Elaborate Track ^empty based on cars location.
+
+sp {elaborate*Occupied
+    (state <s> ^name TrainTracks)
+    (<s> ^Train <Engine>)
+    (<Engine> ^name <Ename>
+              ^location <loc>)
+    (<s> ^Track <track>)
+    (<track> ^name <tname> { <=> <tname> <loc> })
+-->
+    (<track> ^Occupiedby <Ename>)
+    (write |Track | <tname> | is occupied by | <Ename>)
+}
+
+
+# Operators to move in each direction. 
+sp {propose*MoveCenter
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Left Right Up >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name Center)
+   -(<dest> ^Occupiedby <var>)
+-->
+    (<s> ^operator <o> + = )
+    (<o> ^name MoveCenter)
+}
+
+
+sp {apply*MoveCenter
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Left Right Up >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name Center)
+   -(<dest> ^Occupiedby <var>)
+    (<s> ^operator <o>)
+    (<o> ^name MoveCenter)
+-->
+    (<train> ^location <currentloc> - )
+    (<train> ^location Center)
+    (<currenttrack> ^Occupiedby <ename> -)
+    (write <tname> |'is moving to center track.'|)
+}
+
+
+sp {propose*MoveFarRight
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Right >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name FarRight)
+   -(<dest> ^Occupiedby <var>)
+-->
+    (<s> ^operator <o> + = )
+    (<o> ^name MoveFarRight)
+}
+
+
+sp {apply*MoveFarRight
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Right >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name FarRight)
+   -(<dest> ^Occupiedby <var>)
+    (<s> ^operator <o>)
+    (<o> ^name MoveFarRight)
+-->
+    (<train> ^location <currentloc> - )
+    (<train> ^location FarRight)
+    (<currenttrack> ^Occupiedby <ename> -)
+    (write <tname> |'is moving to FarRight track.'|)
+}
+
+sp {propose*MoveRight
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Right FarRight >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> }) 
+    (<s> ^Track <dest>)
+    (<dest> ^name Right)
+   -(<dest> ^Occupiedby <var>)
+-->
+    (<s> ^operator <o> + = )
+    (<o> ^name MoveRight)
+}
+
+
+sp {apply*MoveRight
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Right FarRight >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name Right)
+   -(<dest> ^Occupiedby <var>)
+    (<s> ^operator <o>)
+    (<o> ^name MoveRight)
+-->
+    (<train> ^location <currentloc> - )
+    (<train> ^location Right)
+    (<currenttrack> ^Occupiedby <ename> -)
+    (write <tname> |'is moving to Right track.'|)
+}
+
+
+
+sp {propose*MoveFarLeft
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Left >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name FarLeft)
+   -(<dest> ^Occupiedby <var>)
+-->
+    (<s> ^operator <o> + = )
+    (<o> ^name MoveFarLeft)
+}
+
+
+sp {apply*MoveFarLeft
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Left >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name FarLeft)
+   -(<dest> ^Occupiedby <var>)
+    (<s> ^operator <o>)
+    (<o> ^name MoveFarLeft)
+-->
+    (<train> ^location <currentloc> - )
+    (<train> ^location FarLeft)
+    (<currenttrack> ^Occupiedby <ename> -)
+    (write <tname> |'is moving to FarLeft track.'|)
+}
+
+sp {propose*MoveLeft
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Left FarLeft >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name Left)
+   -(<dest> ^Occupiedby <var>)
+-->
+    (<s> ^operator <o> + = )
+    (<o> ^name MoveLeft)
+}
+
+
+sp {apply*MoveLeft
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Left FarLeft >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name Left)
+   -(<dest> ^Occupiedby <var>)
+    (<s> ^operator <o>)
+    (<o> ^name MoveLeft)
+-->
+    (<train> ^location <currentloc> - )
+    (<train> ^location Left)
+    (<currenttrack> ^Occupiedby <ename> -)
+    (write <tname> |'is moving to Left track.'|)
+}
+
+sp {propose*MoveUp
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Center >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> }) 
+    (<s> ^Track <dest>)
+    (<dest> ^name Up)
+   -(<dest> ^Occupiedby <var>)
+-->
+    (<s> ^operator <o> + = )
+    (<o> ^name MoveUp)
+}
+
+
+sp {apply*MoveUp
+    (state <s> ^name TrainTracks
+               ^Train <train>)
+    (<train> ^name <tname>
+             ^location { << Center >> <currentloc> })
+    (<s> ^Track <currenttrack>)
+    (<currenttrack> ^name <=> <currentloc>
+                    ^Occupiedby { <=> <tname> <ename> })
+    (<s> ^Track <dest>)
+    (<dest> ^name Up)
+   -(<dest> ^Occupiedby <var>)
+    (<s> ^operator <o>)
+    (<o> ^name MoveUp)
+-->
+    (<train> ^location <currentloc> - )
+    (<train> ^location Up)
+    (<currenttrack> ^Occupiedby <ename> -)
+    (write <tname> |'is moving to Up track.'|)
+}
+
+
+sp {propose*engineWait
+    (state <s> ^name TrainTracks
+               ^Train { <> <train2> <train1>}
+               ^Train <train2>)
+    (<train1> ^location <loc1>)
+    (<train2> ^location { <> <loc1> <loc2> })
+    (<s> ^operator <o1>
+         ^operator <o2>)
+    (<o1> ^name <nameo1>)
+    (<o2> ^name { <=> <nameo1> <nameo2> })
+--> 
+    (<s> ^operator <o> +)
+    (<o> ^name remove-operator)
+}
+
+sp {apply*engineWait
+    (state <s> ^name TrainTracks
+               ^Train { <> <train2> <train1>}
+               ^Train <train2>)
+    (<train1> ^location <loc1>)
+    (<train2> ^location { <> <loc1> <loc2> })
+    (<s> ^operator <o1>
+         ^operator <o2>)
+    (<o1> ^name <nameo1>)
+    (<o2> ^name { <=> <nameo1> <nameo2> })
+    (<s> ^operator <o> +)
+    (<o> ^name remove-operator)
+--> 
+    (<s> ^operator <o1> -)
+}
