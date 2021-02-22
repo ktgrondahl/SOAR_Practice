@@ -88,6 +88,7 @@ Variables are represented in between angle brackets <>. Variables represent the 
 			(<s> ^operator <o> +)
 			(<o> ^name eatFruit)
 		}
+		
 		In this example, we are binding the variable <man> to the attribute ^person. 
 
 
@@ -189,7 +190,7 @@ The solution is to use a conjunction enclosed in curly braces.
 			(<o> ^name SelectFruit)
 		}
 		
-		This code states that we want to check working memory for a <fruit> that has an 
+		In this code, we want to check working memory for a <fruit> that has an 
 		attribute ^name equal to banana, peach, or pair,
 		and assign that name to the variable <fname> for use later on. 
 
