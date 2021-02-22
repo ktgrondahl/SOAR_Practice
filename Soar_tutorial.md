@@ -252,7 +252,7 @@ This rule checks working memory for an attribute ^vehicle that does not have att
 Variables, predicates, disjunctions, and conjunctive tests can all be used in attributes. If you woudl like to learn more, please see pages 60 - 62 of the manual for examples. 
 
 
-### RHS:
+### Removing Working memory elements:
 
 In the Right Hand Side (RHS) of soar production rule, it is possible to remove working memory attributes and values. To do this, add a dash (-) to the end of the attribute value. 
 
