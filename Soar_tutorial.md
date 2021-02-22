@@ -80,7 +80,7 @@ There is a ton more to discover to work out the subtleties of operator preferenc
 ### Documentation
 
 A production may contain an optional documentation string. The syntax for a documenta- tion string is that it is enclosed in double quotes and appears after the name of the production and before the first condition (and may carry over to multiple lines). The documentation string allows the inclusion of internal documentation about the production; it will be printed out when the production is printed using the print command.
-For example :
+. For example :
 
         sp {production-name 
         "Documentation string" 
@@ -277,7 +277,8 @@ A useful tool for debugging or displaying progess is to add print statements to 
 
 In the Soar debugger, when this rule is applied the following will print: 
 
-Selecting fruit: banana. 
+
+	Selecting fruit: banana. 
 
 Note the variables can appear anywhere outside of the pipe characters. For example:
 
@@ -290,7 +291,8 @@ Note the variables can appear anywhere outside of the pipe characters. For examp
 		}
 
 This rule prints out: 
-banana is the next fruit we will select. banana is the selcted fruit. 
+		
+	banana is the next fruit we will select. banana is the selcted fruit. 
 
 
 To add a new line to a print statement write (clrf) where you would like the new line to occur:
@@ -304,8 +306,8 @@ To add a new line to a print statement write (clrf) where you would like the new
 
 This rule prints out:
  
-banana is the next fruit we will select. 
-banana is the selcted fruit. 
+	banana is the next fruit we will select. 
+	banana is the selcted fruit. 
 
 ### Mathematical functions
 In soar, mathematical operations utilize prefix notation, so the operator is placed at the begining of the expression. Note, you can perform mathematical operations on variables, constants, or a combination of the two.
@@ -335,3 +337,5 @@ Take a look at the example rule for proper syntax:
 		}
 
 There are other mathematical functions you can make use of, for a more complete list please look at pages 73 - 75 in the manual. 
+
+
