@@ -323,7 +323,7 @@ There are also mathematical functions that may be of use to you:
 
 Take a look at the example rule for proper syntax:
 
-		sp{apply*calculate
+		sp{apply*calculate-math-facts
 			...
 		--> 
 		   (<s> ^quotient (div <x> <y>))
