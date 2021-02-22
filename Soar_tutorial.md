@@ -77,21 +77,8 @@ Now lets say you want the eatBreakfast operator to be selected over the eatFruit
 
 There is a ton more to discover to work out the subtleties of operator preference. One of the key takeaways is you can avoid, or intentionally trigger Impasses by making use of operator preferences.
 
-### Documentation
-
-A production may contain an optional documentation string. The syntax for a documenta- tion string is that it is enclosed in double quotes and appears after the name of the production and before the first condition (and may carry over to multiple lines). The documentation string allows the inclusion of internal documentation about the production; it will be printed out when the production is printed using the print command.
-. For example :
-
-        sp {production-name 
-        "Documentation string" 
-        :type
-        CONDITIONS
-        -->
-        ACTIONS
-        }
-
 ### Variables in production rules 
-Variables are represented in between angle brackets <var>. Variables represent the value that you want to bind to an attribute. 
+Variables are represented in between angle brackets <>. Variables represent the value that you want to bind to an attribute. 
 
 		sp {propose*eatFruit
 			(state <s> ^name meals)
@@ -101,8 +88,9 @@ Variables are represented in between angle brackets <var>. Variables represent t
 			(<s> ^operator <o> +)
 			(<o> ^name eatFruit)
 		}
+		- In this example, we are binding the variable <man> to the attribute ^person. 
 
-In the previous example, we are binding the variable <man> to the attribute ^person. 
+
 
 In Soar, you are able to test condition(s) for the value of an attribute before you bind the value to a variable. The conditions can be conjunctions or disjunctions. 
 
@@ -154,8 +142,10 @@ Inside these conjunctions we can also perform checks on variables. Observe:
 			(<o> ^name count)
 
 		}
+		
+		 In this example, we are checking for the existence of an attribute ^number1 that we bind to the variable <num1>. We are then checking to see if there is another attribute ^number2, checking to see if the value is greater than or equal to the value <num1> and binding the value to the variable <num2>. 
 
-In this example, we are checking for the existence of an attribute ^number1 that we bind to the variable <num1>. We are then checking to see if there is another attribute ^number2, checking to see if the value is greater than or equal to the value <num1> and binding the value to the variable <num2>. 
+
 
 
 #### Disjunctions of values
@@ -171,8 +161,6 @@ In Soar, you can check that an identifier, attribute, or value matches one of mu
 
 << good-morning good-evening >>
 
-Note, you can only use constants inside the double brackets, you CANNOT use variables. This is illegal: '<< <name> Bob >>'. 
-
 For example:
 
 		sp {propose*selectFruit
@@ -182,6 +170,7 @@ For example:
 			(<s> ^operator <o> +)
 			(<o> ^name SelectFruit)
 		}
+		
 
 This operator examines wme and is looking to see if there is an element whose name matches banana, pear, or peach.
 
@@ -195,8 +184,14 @@ The solution is to use a conjunction enclosed in curly braces.
 			(<s> ^operator <o> +)
 			(<o> ^name SelectFruit)
 		}
+		
+		This code states that we want to check working memory for a <fruit> that has an attribute ^name equal to banana, peach, or pair, and assign that name to the variable <fname> for use later on. 
 
-This code states that we want to check working memory for a <fruit> that has an attribute ^name equal to banana, peach, or pair, and assign that name to the variable <fname> for use later on. 
+
+	
+Note, you can only use constants inside the double brackets, you CANNOT use variables. 
+		
+	This is illegal: << <name> Bob >> 
 
 
 
@@ -211,7 +206,7 @@ Negated conditions can be tested in operator rules to check for the absense of v
 		    ...
 		}
 
-This rule will only match if there is a value of the variable <fruit> whose name is NOT Banana. (A variable could be used in place of the Constant Banana, in order to test that there is no element fruit with the attribute name.)
+This rule will only match if there is a value of the variable fruite whose name is NOT Banana. (A variable could be used in place of the Constant Banana, in order to test that there is no element fruit with the attribute name.)
 
 It is important to avoid checking for the negation of a working memory element that is created with i-support. This would wind up in an infinite loop. 
 
@@ -266,7 +261,7 @@ This operator removes the attribute/value ^fruit/<fruit> from working memory ele
 
 ### Text input and Output:
 
-A useful tool for debugging or displaying progess is to add print statements to your production rules. Print statements can be added to the RHS of production rules. The syntax for print statements is (write |string to print| <var>). 
+A useful tool for debugging or displaying progess is to add print statements to your production rules. Print statements can be added to the RHS of production rules. The syntax for print statements is (write |string to print|). You can print variables outside of the pipe characters.  
 
 		sp {apply*selectFruit
 			(state <s> ^fruit <fruit>)
