@@ -88,7 +88,7 @@ Variables are represented in between angle brackets <>. Variables represent the 
 			(<s> ^operator <o> +)
 			(<o> ^name eatFruit)
 		}
-		- In this example, we are binding the variable <man> to the attribute ^person. 
+		In this example, we are binding the variable <man> to the attribute ^person. 
 
 
 
@@ -143,7 +143,9 @@ Inside these conjunctions we can also perform checks on variables. Observe:
 
 		}
 		
-		 In this example, we are checking for the existence of an attribute ^number1 that we bind to the variable <num1>. We are then checking to see if there is another attribute ^number2, checking to see if the value is greater than or equal to the value <num1> and binding the value to the variable <num2>. 
+		 In this example, we are checking for the existence of an attribute ^number1 that we bind to the variable <num1>. 
+		 We then check to see if there is another attribute ^number2. c
+		 We check to see if the value is greater than or equal to the value <num1> and binding the value to the variable <num2>. 
 
 
 
@@ -185,7 +187,8 @@ The solution is to use a conjunction enclosed in curly braces.
 			(<o> ^name SelectFruit)
 		}
 		
-		This code states that we want to check working memory for a <fruit> that has an attribute ^name equal to banana, peach, or pair, and assign that name to the variable <fname> for use later on. 
+		This code states that we want to check working memory for a <fruit> that has an attribute ^name equal to banana, peach, or pair,
+		and assign that name to the variable <fname> for use later on. 
 
 
 	
