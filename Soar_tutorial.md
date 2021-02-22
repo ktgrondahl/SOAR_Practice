@@ -5,7 +5,7 @@ I would only go through this after you feel comfortable with the format of worki
 
 ### Operator preferences:
 
-- Let's say you have two operators. (For this example, ignore the fact there are no apply operators.)  
+Let's say you have two operators. (For this example, ignore the fact there are no apply operators.)  
 
 
 		sp {propose*eatFruit
@@ -28,9 +28,9 @@ I would only go through this after you feel comfortable with the format of worki
 		}
 
 
-- If you run this program, and the conditions are satisfied (note the conditions are the same for both operators), soar will generate and Impasse, and you will be forced to create a substate in order to break the tie. Soar has no way of deciding which operator is preferential to apply. 
+If you run this program, and the conditions are satisfied (note the conditions are the same for both operators), soar will generate and Impasse, and you will be forced to create a substate in order to break the tie. Soar has no way of deciding which operator is preferential to apply. 
 
-- Now if you modify the code to:
+Now if you modify the code to:
 
 		sp {propose*eatFruit
 			(state <s> ^name meals)
@@ -51,9 +51,9 @@ I would only go through this after you feel comfortable with the format of worki
 			(<o> ^name eatBreakfast)
 		}
 
-- When you run this code, you will see that no impasse state is generated. The soar architecture will select an operator at random to apply. 
+When you run this code, you will see that no impasse state is generated. The soar architecture will select an operator at random to apply. 
 
-- Now lets say you want the eatBreakfast operator to be selected over the eatFruit operator. The following code will acheive just that: 
+Now lets say you want the eatBreakfast operator to be selected over the eatFruit operator. The following code will acheive just that: 
 
 		sp {propose*eatFruit
 			(state <s> ^name meals)
@@ -75,12 +75,12 @@ I would only go through this after you feel comfortable with the format of worki
 		}
 
 
-- There is a ton more to discover to work out the subtleties of operator preference. One of the key takeaways is you can avoid, or intentionally trigger Impasses by making use of operator preferences.
+There is a ton more to discover to work out the subtleties of operator preference. One of the key takeaways is you can avoid, or intentionally trigger Impasses by making use of operator preferences.
 
 ### Documentation
 
-- A production may contain an optional documentation string. The syntax for a documenta- tion string is that it is enclosed in double quotes and appears after the name of the production and before the first condition (and may carry over to multiple lines). The documentation string allows the inclusion of internal documentation about the production; it will be printed out when the production is printed using the print command.
-. For example :
+A production may contain an optional documentation string. The syntax for a documenta- tion string is that it is enclosed in double quotes and appears after the name of the production and before the first condition (and may carry over to multiple lines). The documentation string allows the inclusion of internal documentation about the production; it will be printed out when the production is printed using the print command.
+For example :
 
         sp {production-name 
         "Documentation string" 
