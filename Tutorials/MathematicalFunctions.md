@@ -3,8 +3,12 @@ In soar, mathematical operations utilize prefix notation, so the operator is pla
 
  Take a look at the following examples:
 
-- Single operation, traditional: (5 + 10). Soar: (+ 5 10)
-- Nested operations, traditional: ((1 + 2) / (3 + 4)). Soar: (/ (+ 1 2) (+ 3 4))
+- Single operation:
+	Traditional: (5 + 10) 
+	Soar: (+ 5 10)
+- Nested operations: 
+	Traditional: ((1 + 2) / (3 + 4)) 
+	Soar: (/ (+ 1 2) (+ 3 4))
 
 There are also mathematical functions that may be of use to you:
 
