@@ -27,7 +27,7 @@ With cue based retrieval, you attach a query to the semantic memory's command li
 
 When the rule is executed Soar looks through semantic memory for any LTI's that match the query, and if it's successful will make the results available. 
 
-		sp {propose*cue-based-retrieval 
+		sp {apply*cue-based-retrieval 
 			(state <s> ^operator <o>)
 			(<o> ^name cue-based-retrieval)
 			(<s> ^smem <smem>)  
