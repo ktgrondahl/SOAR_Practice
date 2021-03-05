@@ -54,7 +54,7 @@ Before you can use the results of the query, it's a good idea to ensure that the
 Now when the rule is executed Soar looks through semantic memory for any LTI's that match the query, and if it's successful stores the LTI as an STI on the smem.results.retrieved link.
 
 
-After pulling the results of the query, we place it into working memory, by attaching the STI on an attribute ^semantic-query-results on state <s>. 
+After pulling the results of the query, we place it into working memory, by attaching the STI on an attribute ^semantic-query-results on state s. 
 		
 		sp {apply*access-query-results
 		    (state <s> ^operator.name access-query-results
