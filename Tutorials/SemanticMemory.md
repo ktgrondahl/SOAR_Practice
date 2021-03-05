@@ -71,34 +71,13 @@ Once this is completed, you need to clear up smem command link in order to use i
 
 
 
-Alternatively, you do not need to store the results in working memory if you don't want to, you can instead access them directly off the smem.results.retrieved link and store the value on a variable, (without saving it in smem). 
-
-For instance, 
-
-								     <@7>
-								       |
-								       |
-								     garage
-								   /        \
-								  /          \
-								 /     	      \
-								/              \
-							   /		        \
-							  /			         \
-							prius              vespa
-							/   \             /     \
-						   / 	 \           / 	     \
-				     passengers   mpg      passengers  mpg  
-				      	 /        / 		 \		   \
-				        /	 	 /			  \			\
-				      5         35			   1		  50
+Alternatively, you do not need to store the results in working memory if you don't want to. If you know the structure of the semantic memory that you pulled in, you can access attribute/values directly off the smem.results.retrieved link.  
 
 
 
-
-Example: smem - person <p> 
-				<p> ^firstname Katie
-					^lastname Grondahl 
+		Example: smem - person <p> 
+						<p> ^firstname Katie
+							^lastname Grondahl 
 
 
 
