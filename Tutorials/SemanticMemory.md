@@ -59,7 +59,7 @@ Now when the rule is executed Soar looks through semantic memory for any LTI's t
 ![Smem Introduction](./images/smem3.png)
 
 
-After pulling the results of the query, we can place it into working memory, by attaching the STI on an attribute ^semantic-query-results on state s. 
+After pulling the results of the query, we can place it into working memory, by attaching the STI on an attribute ^semantic-query-results on state ```<s>```. 
 
 ![Smem Introduction](./images/smem4.png)
 
