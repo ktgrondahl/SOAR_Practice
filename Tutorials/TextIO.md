@@ -29,13 +29,13 @@ This rule prints out:
 	banana is the next fruit we will select. banana is the selcted fruit. 
 
 
-To add a new line to a print statement write (clrf) where you would like the new line to occur:
+To add a new line to a print statement write (crlf) where you would like the new line to occur:
 
 		sp {apply*selectFruit
 			(state <s> ^fruit <fruit>)
 			(<fruit> ^name { << banana >> <fname> })
 		--> 
-			(write <fname> |is the next fruit we will select.| (clrf) <fname> | is the selected fruit.| )
+			(write <fname> |is the next fruit we will select.| (crlf) <fname> | is the selected fruit.| )
 		}
 
 This rule prints out:
