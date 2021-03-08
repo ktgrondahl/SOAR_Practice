@@ -6,16 +6,18 @@ Long-term identifiers (LTIs) are identifiers that exist in semantic memory only.
 
 Each time you load an LTI into working memory, the STI created will always be unique. This means that if the same LTI is retrieved multiple times, each retrieval points to a unique STI instance in working memory. STIs can be modified in working memory, but this has no effect on the linked LTI in semantic memory. 
 
-
+![Smem Introduction](./images/smem1.png)
 
 ## Retrieving Semantic Knowledge:
 
 ### Cue-Based Retrievals
 
-A cue-based retrieval performs a search for a long-term identifier in semantic memory whose attribute/value pairs exactly match a query. The result is available to use on the command link. In practice, you need to query the 
+A cue-based retrieval performs a search for a long-term identifier in semantic memory whose attribute/value pairs exactly match a query. The result is available to use on the command link. 
 
 
 With cue based retrieval, you attach a query to the semantic memory's command link. On that query you can specify any attribute/value pair(s) that you want satisfied. 
+
+![Smem Introduction](./images/smem2.png)
 													         
 	
 		sp {propose*cue-based-retrieval                         
@@ -54,8 +56,13 @@ Before you can use the results of the query, it's a good idea to ensure that the
 
 Now when the rule is executed Soar looks through semantic memory for any LTI's that match the query, and if it's successful stores the LTI as an STI on the smem.results.retrieved link.
 
+![Smem Introduction](./images/smem3.png)
 
-After pulling the results of the query, we place it into working memory, by attaching the STI on an attribute ^semantic-query-results on state s. 
+
+After pulling the results of the query, we can place it into working memory, by attaching the STI on an attribute ^semantic-query-results on state s. 
+
+![Smem Introduction](./images/smem4.png)
+
 		
 		sp {apply*access-query-results
 		    (state <s> ^operator.name access-query-results
@@ -75,5 +82,9 @@ Once this is completed, you need to clear up smem command link in order to use i
 Alternatively, you do not need to store the results in working memory if you don't want to. If you know the structure of the semantic memory that you pulled in, you can access attribute/values directly off the smem.results.retrieved link.  
 
 
-### NON-cue based retrieval
+
+### Non-cue based retrieval
+
+
+With non-cue based retrievals, you are searching semantic memory for a LTI. 
 
