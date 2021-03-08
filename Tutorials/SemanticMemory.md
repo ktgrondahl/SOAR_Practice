@@ -92,6 +92,6 @@ With non-cue based retrievals, you are searching semantic memory for a LTI.
 
 ![Smem Introduction](./images/smem6.png)
 
-![Smem Introduction](./images/smem7.png)
+![Smem Introduction](./images/smem7a.png)
 
 
