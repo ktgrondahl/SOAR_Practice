@@ -36,7 +36,6 @@ When you don't know what LTI you want to grab, but instead have a criteria that 
 
 With cue-based retrieval, you attach a set of criteria to a query and attach the query to the command link. SOAR will look through semantic memory for an LTI that satisfies your criteria. If it is successful, the result is available to use on the command link. 
 
-![Smem CBR-intro](./images/smem2.png)
 													         
 	
 		sp {propose*cue-based-retrieval                         
@@ -45,7 +44,9 @@ With cue-based retrieval, you attach a set of criteria to a query and attach the
 		-->
 			(<s> ^operator <o>)
 			(<o> ^name cue-based-retrieval)
-		}					
+		}	
+		
+![Smem CBR-intro](./images/smem2.png)
 
 When the rule is executed Soar looks through semantic memory for any LTI's that match the query, and if it's successful will make the results available. 
 
