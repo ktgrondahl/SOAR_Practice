@@ -46,8 +46,6 @@ With cue-based retrieval, you attach a set of criteria to a query and attach the
 			(<o> ^name cue-based-retrieval)
 		}	
 		
-![Smem CBR-intro](./images/smem2.png)
-
 When the rule is executed Soar looks through semantic memory for any LTI's that match the query, and if it's successful will make the results available. 
 
 		sp {apply*cue-based-retrieval 
@@ -62,6 +60,7 @@ When the rule is executed Soar looks through semantic memory for any LTI's that 
 			     ^attr3 @V3 …)						     
 		}
 
+![Smem Introduction](./images/smem2.png)
 
 
 Before you can use the results of the query, it's a good idea to ensure that the query was successful. To ensure that the query was successful, check the smem.result.success link in the proposal operator.  The query results can then be added into working memory through, provided the query was successful.  
