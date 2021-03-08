@@ -1,25 +1,41 @@
-# Semantic memory:
+# Overview of Semantic Memory:
 
+Another memory in the Soar Architecture is semantic memory. This is used for storing long term knowledge and facts. For example 'red is a color', 'fire is hot', 'the sky is blue'. It would be inappropriate to store this type of memory in the Working Memory, as this knowledge is not always necessary.
 
-Long-term identifiers (LTIs) are identifiers that exist in semantic memory only. Each LTI is labeled with an @ and a number (@5, @7, etc). The number assigned to it is permanent. LTIs never exist in working memory, but can be added to working memory as a short-term identifiers (STIs), through a query or retrieval. 
+### How would you store this type of information? 
+
+Surprisingly, it takes on a format similar to the structure of working memory. Soar's semantic memory utilizes a graph structure to store knowledge. Unlike the Working Memory, the Semantic Memory can store a series of multiple disconnected graphs. These graphs are not connected to the working memory initially. 
 
 ![Smem LTI](./images/smem0.png)
 
+Soar constructs the Semantic Memory out of identifiers. Similar to the Working Memory Identifiers, these are 'nodes' that help layout the data. Identifiers in the Semantic Memory are referred to as Long Term Identifiers (LTI). 
+
+These exist only in the Semantic Memory. Each LTI is labeled with an @ and a number (@5, @7, etc), the number assigned to it is permanent. LTIs never exist in working memory, but can be added to working memory as a short-term identifiers (STIs), through a query or direct retrieval. 
+
+### How would you retrieve this type of information? 
+
+How are we able to retrieve this knowledge from the semantic memory? There are multiple methods we will discuss in detail, but both methods rely on built-in links in working memory. The standard graph of working memory shows an attribute ^smem. Branching off smem we find attributes ^command and ^result.
+	
+- On the ^command attribute you can specify the LTI you want to grab, or conditions the LTI must satisfy. 
+- On the ^results attribute, the LTI grabbed by the ^command attribute are placed. 
+
+![Smem Introduction](./images/smem1.png)
 
 Each time you load an LTI into working memory, the STI created will always be unique. This means that if the same LTI is retrieved multiple times, each retrieval points to a unique STI instance in working memory. STIs can be modified in working memory, but this has no effect on the linked LTI in semantic memory. 
 
-![Smem Introduction](./images/smem1.png)
+
+
+
+
 
 ## Retrieving Semantic Knowledge:
 
 ### Cue-Based Retrievals
 
-A cue-based retrieval performs a search for a long-term identifier in semantic memory whose attribute/value pairs exactly match a query. The result is available to use on the command link. 
+When you don't know what LTI you want to grab, but instead have a criteria that an LTI must satisfy, you should use cue-based retrieval to access the contents of semantic memory. 
 
+With cue-based retrieval, you attach a set of criteria to a query and attach the query to the command link. SOAR will look through semantic memory for an LTI that satisfies your criteria. If it is successful, the result is available to use on the command link. 
 
-With cue based retrieval, you attach a query to the semantic memory's command link. On that query you can specify any attribute/value pair(s) that you want satisfied. 
-
-![Smem CBR-intro](./images/smem2.png)
 													         
 	
 		sp {propose*cue-based-retrieval                         
@@ -28,8 +44,8 @@ With cue based retrieval, you attach a query to the semantic memory's command li
 		-->
 			(<s> ^operator <o>)
 			(<o> ^name cue-based-retrieval)
-		}					
-
+		}	
+		
 When the rule is executed Soar looks through semantic memory for any LTI's that match the query, and if it's successful will make the results available. 
 
 		sp {apply*cue-based-retrieval 
@@ -44,9 +60,10 @@ When the rule is executed Soar looks through semantic memory for any LTI's that 
 			     ^attr3 @V3 …)						     
 		}
 
+![Smem Introduction](./images/smem2.png)
 
 
-Before you can use the results of the query, it's a good idea to ensure that the query was successful.To ensure that the query was successful, check the smem.result.success link in the proposal operator.  The query results can then be added into working memory through, provided the query was successful.  
+Before you can use the results of the query, it's a good idea to ensure that the query was successful. To ensure that the query was successful, check the smem.result.success link in the proposal operator.  The query results can then be added into working memory through, provided the query was successful.  
 
 
 		sp {propose*access-query-results
@@ -81,7 +98,7 @@ Once this is completed, you need to clear up smem command link in order to use i
 
 
 
-Alternatively, you do not need to store the results in working memory if you don't want to. If you know the structure of the semantic memory that you pulled in, you can access attribute/values directly off the smem.results.retrieved link.  
+It is optional to store the results in working memory. Alternatively, if you know the structure of the semantic memory that you pulled in, you can access attribute/values directly off the smem.results.retrieved link.  
 
 
 
