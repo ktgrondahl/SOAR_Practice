@@ -3,6 +3,8 @@
 
 Long-term identifiers (LTIs) are identifiers that exist in semantic memory only. Each LTI is labeled with an @ and a number (@5, @7, etc). The number assigned to it is permanent. LTIs never exist in working memory, but can be added to working memory as a short-term identifiers (STIs), through a query or retrieval. 
 
+![Smem LTI](./images/smem0.png)
+
 
 Each time you load an LTI into working memory, the STI created will always be unique. This means that if the same LTI is retrieved multiple times, each retrieval points to a unique STI instance in working memory. STIs can be modified in working memory, but this has no effect on the linked LTI in semantic memory. 
 
@@ -17,7 +19,7 @@ A cue-based retrieval performs a search for a long-term identifier in semantic m
 
 With cue based retrieval, you attach a query to the semantic memory's command link. On that query you can specify any attribute/value pair(s) that you want satisfied. 
 
-![Smem Introduction](./images/smem2.png)
+![Smem CBR-intro](./images/smem2.png)
 													         
 	
 		sp {propose*cue-based-retrieval                         
