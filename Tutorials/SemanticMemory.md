@@ -107,7 +107,7 @@ It is optional to store the results in working memory. Alternatively, if you kno
 
 With non-cue based retrievals, you are searching semantic memory for a LTI. 
 
-![Smem Introduction](./images/smem5.png)
+![Smem Introduction](./images/smem5a.png)
 
 ![Smem Introduction](./images/smem6.png)
 
