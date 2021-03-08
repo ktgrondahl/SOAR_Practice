@@ -6,7 +6,7 @@ Another memory in the Soar Architecture is semantic memory. This is used for sto
 
 Surprisingly, it takes on a format similar to the structure of working memory. Soar's semantic memory utilizes a graph structure to store knowledge. Unlike the Working Memory, the Semantic Memory can store a series of multiple disconnected graphs. These graphs are not connected to the working memory initially. 
 
-![Smem LTI](./images/smem0.png)
+![Smem LTI](./images/smem0.png){:height="50%" width="50%"}
 
 Soar constructs the Semantic Memory out of identifiers. Similar to the Working Memory Identifiers, these are 'nodes' that help layout the data. Identifiers in the Semantic Memory are referred to as Long Term Identifiers (LTI). These exist only in the Semantic Memory. Each LTI is labeled with an @ and a number (@5, @7, etc), the number assigned to it is permanent. LTIs never exist in working memory, but can be added to working memory as a short-term identifiers (STIs), through a query or direct retrieval. 
 
@@ -16,7 +16,7 @@ Soar constructs the Semantic Memory out of identifiers. Similar to the Working M
 	- On the ^command attribute you can specify the LTI you want to grab, or conditions the LTI must satisfy. 
 	- On the ^results attribute, the LTI grabbed by the ^command attribute are placed. 
 
-![Smem Introduction](./images/smem1.png)
+![Smem Introduction](./images/smem1.png){:height="50%" width="50%"}
 
 - Each time you load an LTI into working memory, the STI created will always be unique. This means that if the same LTI is retrieved multiple times, each retrieval points to a unique STI instance in working memory. STIs can be modified in working memory, but this has no effect on the linked LTI in semantic memory. 
 
