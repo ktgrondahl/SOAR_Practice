@@ -94,7 +94,7 @@ After pulling the results of the query, we can place it into working memory, by 
 		    (<cmd> ^query <q> -)
 		}
 
-Once this is completed, you need to clear up smem command link in order to use it again (in the future).  
+Once this is completed, you need to remove the query from the smem.command link in order to use it later.  
 
 
 
