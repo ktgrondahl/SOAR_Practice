@@ -98,7 +98,7 @@ Once this is completed, you need to clear up smem command link in order to use i
 
 
 
-Alternatively, you do not need to store the results in working memory if you don't want to. If you know the structure of the semantic memory that you pulled in, you can access attribute/values directly off the smem.results.retrieved link.  
+It is optional to store the results in working memory. Alternatively, if you know the structure of the semantic memory that you pulled in, you can access attribute/values directly off the smem.results.retrieved link.  
 
 
 
