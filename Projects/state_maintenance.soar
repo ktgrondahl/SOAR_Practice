@@ -123,7 +123,7 @@ sp {propose*increment*send-to-output
 
 sp {apply*increment*send-to-output
     (state <s> ^io.output-link <out>
-               ^send-incremented-value-to-output true
+               ^send-to-output true
                ^value <val>
                ^operator <o>)
     (<o> ^name send-to-output)
