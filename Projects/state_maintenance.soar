@@ -3,6 +3,7 @@
 #
 # @created kgrondah 20210310
 # rules to initiate state
+
 sp {propose*init
     (state <s> ^type state)
     (<s> -^name)
@@ -16,32 +17,31 @@ sp {apply*init
                ^operator <o>)
     (<o> ^name init)
 -->
-    (<s> ^value 50)
+    (<s> ^value 70)
 }
 
 
-#rule to elaborate input link
-sp {elaborate*adding-val-input-link
-    (state <s> ^io.input-link <in>
-               ^value <val>)
-    (<in> ^value-add <value-change>)
--->
-    (<s> ^value (+ <val> <value-change>))
-}
-
-sp {elaborate*subtracting-val-input-link
-    (state <s> ^io.input-link <in>
-               ^value <val>)
-    (<in> ^value-sub <value-change>)
--->
-    (<s> ^value (- <val> <value-change>))
-}
-
-
-
-### QUESTION
-#do I need to clean the input link. 
-
+##rule to elaborate input link
+#sp {elaborate*adding-val-input-link
+#    (state <s> ^io.input-link <in>
+#               ^io.output-link <out>
+#               ^value <val>)
+#    (<in> ^value-add <value-change>)
+#-->
+#    (<s> ^value (+ <val> <value-change>))
+#    (<s> ^io.output-link <out> -)
+#}
+#
+#sp {elaborate*subtracting-val-input-link
+#    (state <s> ^io.input-link <in>
+#               ^io.output-link <out>
+#               ^value <val>)
+#    (<in> ^value-sub <value-change>)
+#-->
+#    (<s> ^value (- <val> <value-change>))
+#    (<s> ^io.output-link <out> -)
+#}
+#
 
 
 
@@ -62,6 +62,7 @@ sp {apply*increment
     (<s> ^value <x> -)
     (<s> ^value (+ 1 <x>))
     (<s> ^send-to-output true)
+    (write (crlf) |old value is: | <x>)
 }
 
 
@@ -81,53 +82,56 @@ sp {apply*decrement
     (<s> ^value <x> -)
     (<s> ^value (- 1 <x>))
     (<s> ^send-to-output true)
+    (write (crlf) |old value is: | <x>)
 }
 
-#rule to send current decremented value to output
-sp {propose*decrement*send-to-output
-    (state <s> ^io.output-link <out>
-               ^send-to-output true
-               ^value <val>
-               ^operator <o>)
-    (<o> ^name decrement)
-    
---> 
-    (<s> ^operator <o2> + !)
-    (<o2> ^name send-decremented-value-to-output)
-}
+##rule to send current decremented value to output
+#sp {propose*decrement*send-to-output
+#    (state <s> ^io.output-link <out>
+#               ^send-to-output true
+#               ^value <val>
+#               ^operator <o>)
+#    (<o> ^name decrement)
+#    
+#--> 
+#    (<s> ^operator <o2> + !)
+#    (<o2> ^name send-decremented-value-to-output)
+#}
+#
+#sp {apply*decrement*send-to-output
+#    (state <s> ^io.output-link <out>
+#               ^send-to-output true
+#               ^value <val>
+#               ^operator <o>)
+#    (<o> ^name send-decremented-value-to-output)
+#-->
+#    (<out> ^new-value <val>)
+#   
+#}
+#
+##rule to send current incremented value to output
+#
+#sp {propose*increment*send-to-output
+#    (state <s> ^io.output-link <out>
+#               ^send-to-output true
+#               ^value <val>
+#               ^operator <o>)
+#    (<o> ^name increment)
+#    
+#--> 
+#    (<s> ^operator <o2> + !)
+#    (<o2> ^name send-incremented-value-to-output)
+#}
+#
+#sp {apply*increment*send-to-output
+#    (state <s> ^io.output-link <out>
+#               ^send-to-output true
+#               ^value <val>
+#               ^operator <o>)
+#    (<o> ^name send-to-output)
+#-->
+#    (<out> ^new-value <val>)
+#}
+#
 
-sp {apply*decrement*send-to-output
-    (state <s> ^io.output-link <out>
-               ^send-to-output true
-               ^value <val>
-               ^operator <o>)
-    (<o> ^name send-decremented-value-to-output)
--->
-    (<out> ^new-value <val>)
-   
-}
-
-#rule to send current incremented value to output
-
-sp {propose*increment*send-to-output
-    (state <s> ^io.output-link <out>
-               ^send-to-output true
-               ^value <val>
-               ^operator <o>)
-    (<o> ^name increment)
-    
---> 
-    (<s> ^operator <o2> + !)
-    (<o2> ^name send-incremented-value-to-output)
-}
-
-sp {apply*increment*send-to-output
-    (state <s> ^io.output-link <out>
-               ^send-to-output true
-               ^value <val>
-               ^operator <o>)
-    (<o> ^name send-to-output)
--->
-    (<out> ^new-value <val>)
-}
 
