@@ -1,0 +1,125 @@
+##!
+# @file
+#
+# @created kgrondah 20210310
+# rules to initiate state
+sp {propose*init
+    (state <s> ^type state)
+    (<s> -^name)
+-->
+    (<s> ^operator <o> +)
+    (<o> ^name init)
+}
+
+sp {apply*init
+    (state <s> ^name init
+               ^operator <o>)
+    (<o> ^name init)
+-->
+    (<s> ^value 50)
+}
+
+
+#rule to elaborate input link
+sp {elaborate*input-link
+    (state <s> ^io.input-link <in>
+               ^value <val>)
+    (<in> ^value-change <value-change>)
+-->
+    (<s> ^value (+ <val> <value-change>))
+}
+
+
+### QUESTION
+#do I need to clean the input link. 
+
+
+
+
+# rules to increment value
+
+sp {propose*increment
+    (state <s> ^value < 40)
+-->
+    (<s> ^operator <o> +)
+    (<o> ^name increment)
+}
+
+sp {apply*increment
+    (state <s> ^value <x>
+               ^operator <o>)
+    (<o> ^name increment)
+-->
+    (<s> ^value <x> -)
+    (<s> ^value (+ 1 <x>))
+    (<s> ^send-to-output true)
+}
+
+
+# rules to decrement value
+sp {propose*decrement
+    (state <s> ^value > 60)
+-->
+    (<s> ^operator <o> +)
+    (<o> ^name decrement)
+}
+
+sp {apply*decrement
+    (state <s> ^value <x>
+               ^operator <o>)
+    (<o> ^name decrement)
+-->
+    (<s> ^value <x> -)
+    (<s> ^value (- 1 <x>))
+    (<s> ^send-to-output true)
+}
+
+#rule to send current decremented value to output
+sp {propose*decrement*send-to-output
+    (state <s> ^io.output-link <out>
+               ^send-to-output true
+               ^value <val>
+               ^operator <o>)
+    (<o> ^name decrement)
+    
+--> 
+    (<s> ^operator <o2> + !)
+    (<o2> ^name send-decremented-value-to-output)
+}
+
+sp {apply*decrement*send-to-output
+    (state <s> ^io.output-link <out>
+               ^send-to-output true
+               ^value <val>
+               ^operator <o>)
+    (<o> ^name send-decremented-value-to-output)
+-->
+    (<out> ^new-value <val>)
+   
+}
+
+#rule to send current incremented value to output
+
+sp {propose*increment*send-to-output
+    (state <s> ^io.output-link <out>
+               ^send-to-output true
+               ^value <val>
+               ^operator <o>)
+    (<o> ^name increment)
+    
+--> 
+    (<s> ^operator <o2> + !)
+    (<o2> ^name send-incremented-value-to-output)
+}
+
+sp {apply*increment*send-to-output
+    (state <s> ^io.output-link <out>
+               ^send-incremented-value-to-output true
+               ^value <val>
+               ^operator <o>)
+    (<o> ^name send-to-output)
+-->
+    (<out> ^new-value <val>)
+}
+
+
