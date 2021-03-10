@@ -21,13 +21,22 @@ sp {apply*init
 
 
 #rule to elaborate input link
-sp {elaborate*input-link
+sp {elaborate*adding-val-input-link
     (state <s> ^io.input-link <in>
                ^value <val>)
-    (<in> ^value-change <value-change>)
+    (<in> ^value-add <value-change>)
 -->
     (<s> ^value (+ <val> <value-change>))
 }
+
+sp {elaborate*subtracting-val-input-link
+    (state <s> ^io.input-link <in>
+               ^value <val>)
+    (<in> ^value-sub <value-change>)
+-->
+    (<s> ^value (- <val> <value-change>))
+}
+
 
 
 ### QUESTION
@@ -121,5 +130,4 @@ sp {apply*increment*send-to-output
 -->
     (<out> ^new-value <val>)
 }
-
 
