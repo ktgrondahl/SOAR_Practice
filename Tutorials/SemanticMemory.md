@@ -105,7 +105,11 @@ It is optional to store the results in working memory. Alternatively, if you kno
 ### Non-cue based retrieval
 
 
-With non-cue based retrievals, you are searching semantic memory for a LTI. 
+With non-cue based retrievals, you are searching semantic memory for a specific LTI. 
+
+You place the lti on the link ```<s>``` ^smem.command.retrieve <lti> 
+	
+If successful, the result will be placed on the link ^smem.command.retrieved <lti>
 
 ![Smem Introduction](./images/smem5a.png)
 
