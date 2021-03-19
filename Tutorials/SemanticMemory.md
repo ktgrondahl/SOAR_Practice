@@ -107,9 +107,11 @@ It is optional to store the results in working memory. Alternatively, if you kno
 
 With non-cue based retrievals, you are searching semantic memory for a specific LTI. 
 
-You place the lti on the link ```<s>``` ^smem.command.retrieve <lti> 
+You place the lti on the link: ```<s>``` ^smem.command.retrieve <lti> 
 	
-If successful, the result will be placed on the link ^smem.command.retrieved <lti>
+If successful, the result will be placed on the link: ```<s>``` ^smem.command.retrieved <lti>, and you will be notified on the success link: ```<s>``` ^smem.result.success <lti>
+	
+If unsuccessful, a WME will be added to the ```<s>``` ^smem.result.failure <lti>
 
 ![Smem Introduction](./images/smem5a.png)
 
