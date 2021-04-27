@@ -57,6 +57,9 @@ How are we able to retrieve this knowledge from the semantic memory? There are m
 - On the ^command attribute you can specify the LTI you want to grab, or conditions the LTI must satisfy. 
 - On the ^results attribute, the LTI grabbed by the ^command attribute are placed. 
 
+
+Each time you load an LTI into working memory, the STI created will always be unique. This means that if the same LTI is retrieved multiple times, each retrieval points to a unique STI instance in working memory. STIs can be modified in working memory, but this has no effect on the linked LTI in semantic memory. 
+
 ![Smem Introduction](./images/smem1.png)
 
 Each time you load an LTI into working memory, the STI created will always be unique. This means that if the same LTI is retrieved multiple times, each retrieval points to a unique STI instance in working memory. STIs can be modified in working memory, but this has no effect on the linked LTI in semantic memory. 
