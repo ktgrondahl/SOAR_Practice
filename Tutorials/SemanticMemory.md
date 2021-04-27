@@ -19,7 +19,9 @@ Soar constructs the Semantic Memory out of identifiers. Similar to the Working M
 
 These exist only in the Semantic Memory. Each LTI is labeled with an @ and a number (@5, @7, etc), the number assigned to it is permanent. LTIs never exist in working memory, but can be added to working memory as a short-term identifiers (STIs), through a query or direct retrieval. 
 
-- The simplest way to add Semantic memory to Soar is with a command in the debugger:
+#### Adding/Storing Information in Semantic Memory
+
+ The simplest way to add Semantic memory to Soar is with a command in the debugger:
 
 ```
 smem --add {
@@ -30,7 +32,7 @@ smem --add {
 
 The format above is relatively simple to follow, with new variables being created, and attribute/value and attribute/id pairs being used to create the graph. This information can also be stored in the .sem file within the Soar Data loader. Only include the information in the parentheses. Be sure to also not include blank lines, as variables won't be utilized between sections that are split.
 
-- Another way to add semantic memory is by utilizing the 'store' link. The following command can be placed in the 'action' section of a rule:
+ Another way to add semantic memory is by utilizing the 'store' link. The following command can be placed in the 'action' section of a rule:
 
 ```
 <s> ^smem.command.store <identifier>
