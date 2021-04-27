@@ -2,6 +2,13 @@
 
 Another memory in the Soar Architecture is semantic memory. This is used for storing long term knowledge and facts. For example 'red is a color', 'fire is hot', 'the sky is blue'. It would be inappropriate to store this type of memory in the Working Memory, as this knowledge is not always necessary.
 
+Before we begin, be sure to **Enable** the semantic memory as it is <ins>disabled by default</ins>. The Soar Data loader enables it automatically, but if you are using the stock debugger, run the following command:
+
+```
+smem --set learning on
+```
+
+
 ### How would you store this type of information? 
 
 Surprisingly, it takes on a format similar to the structure of working memory. Soar's semantic memory utilizes a graph structure to store knowledge. Unlike the Working Memory, the Semantic Memory can store a series of multiple disconnected graphs. These graphs are not connected to the working memory initially. 
