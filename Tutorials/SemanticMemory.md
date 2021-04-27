@@ -50,7 +50,7 @@ Depending on the id, one of the following occurs:
 
 ### How would you retrieve this type of information? 
 
-How are we able to retrieve this knowledge from the semantic memory? There are multiple methods we will discuss in detail, but both methods rely on built-in links in working memory. The standard graph of working memory shows an attribute ^smem. Branching off smem we find attributes ^command and ^result.
+How are we able to retrieve this knowledge from the semantic memory? There are multiple methods we will discuss in detail, but both methods rely on built-in links in working memory. The standard graph of working memory shows an attribute ^smem. Branching off ^smem we find attributes ^command and ^result.
 
 ![Smem Introduction](./images/shared-standard-working-memory.jpg)
 	
