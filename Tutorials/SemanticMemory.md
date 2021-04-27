@@ -127,3 +127,24 @@ If unsuccessful, a WME will be added to the ```<s> ^smem.result.failure <lti>```
 ![Smem Introduction](./images/smem7a.png)
 
 
+## Important additional Details
+* Like the working memory, semantic memory is lost when the agent shuts down. This memory can be saved back to the disk as a SQLite file and loaded later. Information on this can be found in the Soar Manual
+* ```<s> ^smem.result.success <identifier>``` will return a short term identifier linked to LTI that was just added
+* Where the 'store' command might overwrite LTIs if they already match, Store-new creates a new LTI
+* Storage/Retrieval occurs in parallel at every state, with only one command allowed per state.
+* A 'depth' attribute can be used to retrieve memory structures at a greater depth
+* The 'prohibit' command can insure that the retrieved LTI is not equal to the LTI you provide
+
+
+## Learning Objective
+
+Topic | Page Title
+------------ | -------------
+Recall the type of memory stored in the Semantic Memory	| 1 (remember)
+Recall the structure used for the Semantic Memory | 1 (remember)
+Understand the purpose of an LTI and the role it plays with the working memory | 2 (understand)
+Understand the the usage of the Semantic memory WME links | 2 (understand)
+Understand the ways of storing memory | 2 (understand)
+Understand the different ways to retrieve Semantic memory | 2 (understand)
+Recall which phase in the decision cycle semantic memory is retrieved | 1 (remember)
+
